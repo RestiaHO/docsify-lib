@@ -250,17 +250,29 @@ components/Life.vue 中设置beforeUpdate和updated
 </template>
 
 <script>
-export default {
-    data(){
-        return {
-            msg: "hello, Vue",
-            arr: [5, 8, 2, 1]
-        }
-    },
-    // ...省略其他代码
+    export default {
+        data(){
+            return {
+                msg: "hello, Vue",
+                arr: [5, 8, 2, 1]
+            }
+        },
+        // ...省略其他代码
 
-  
-}
+        // 三. 更新
+        // 前提: data数据改变才执行
+        // 更新之前
+        beforeUpdate() {
+            console.log("beforeUpdate -- 执行");
+            console.log(document.querySelectorAll("#myUL>li")[4]); // undefined
+        },
+        // 更新之后
+        // 场景: 获取更新后的真实DOM
+        updated() {
+            console.log("updated -- 执行");
+            console.log(document.querySelectorAll("#myUL>li")[4]); // li
+        },
+    }
 </script>
 ```
 
@@ -475,7 +487,7 @@ axios({
 
 5. 发起axios请求
 
-   全局配置rul：避免前缀写上基础地址, 暴露在逻辑页面里, 统一设置
+   全局配置url：避免前缀写上基础地址, 暴露在逻辑页面里, 统一设置
 
    ```vue
    <template>
@@ -1388,6 +1400,7 @@ yarn add less less-loader@5.0.0 -D
          }
        },
      }
+     </script>
      
      <style lang="less" scoped>
      .my-counter {
@@ -1662,7 +1675,7 @@ App.vue传入相应自定义的值
              每个对象和组件都是独立的
              对象里的goods_state关联自己对应商品的复选框
             -->
-           <input type="checkbox" class="custom-control-input" :id="goodsData.id" v-model="goodsData.goods_state">
+           <input type="checkbox" class="custom-control-input" :id="goodsData.id" v-model="goodsDataClone.goods_state">
            <label class="custom-control-label">
              <img :src="goodsData.goods_img" alt="">
            </label>
@@ -1681,18 +1694,23 @@ App.vue传入相应自定义的值
    </template>
    
    <script>
-   import MyCount from './MyCount.vue'
-   export default {
-     components: {
-       MyCount
-     },
-     props: {
-       goodsData: {
-         typeof: Object,
-         default: () => ({})
+       import MyCount from './MyCount.vue'
+       export default {
+           components: {
+               MyCount
+           },
+           props: {
+               goodsData: {
+                   typeof: Object,
+                   default: () => ({})
+               }
+           },
+           data() {
+               return {
+                   goodsDataClone: this.goodsData
+               }
+           },
        }
-     },
-   }
    </script>
    ```
 
@@ -1702,20 +1720,25 @@ App.vue传入相应自定义的值
    <template>
      <div class="my-counter">
        <button type="button" class="btn btn-light">-</button>
-       <input type="number" class="form-control inp" v-model.number="goodsData.goods_count">
+       <input type="number" class="form-control inp" v-model.number="goodsDataClone.goods_count">
        <button type="button" class="btn btn-light">+</button>
      </div>
    </template>
    
    <script>
-   export default {
-     props: {
-       goodsData: {
-         typeof: Object,
-         default: () => ({})
+       export default {
+           props: {
+               goodsData: {
+                   typeof: Object,
+                   default: () => ({})
+               }
+           }
+           data() {
+               return {
+                   goodsDataClone: this.goodsData
+               }
+           },
        }
-     }
-   }
    </script>
    ```
 
@@ -1725,7 +1748,7 @@ App.vue传入相应自定义的值
 
 ```VUE
 <input type="checkbox" class="custom-control-input" :id="goodsData.id"
-       v-model="goodsData.goods_state"
+       v-model="goodsDataClone.goods_state"
        >
 <label class="custom-control-label" :for="goodsData.id">
     <img :src="goodsData.goods_img" alt="">
@@ -1752,35 +1775,41 @@ App.vue传入相应自定义的值
 <template>
   <div class="my-counter">
     <!-- 1. 减少到1时，禁用减少按钮，点击事件也要做限制 -->
-    <button type="button" class="btn btn-light" :disabled="goodsData.goods_count === 1"
-      @click="goodsData.goods_count > 1 && goodsData.goods_count--">-</button>
-    <input type="number" class="form-control inp" v-model.number="goodsData.goods_count">
+    <button type="button" class="btn btn-light" :disabled="goodsDataClone.goods_count === 1"
+      @click="goodsDataClone.goods_count > 1 && goodsDataClone.goods_count--">-</button>
+    <input type="number" class="form-control inp" v-model.number="goodsDataClone.goods_count">
     <!-- 2. 点击增加，数量加一 -->
-    <button type="button" class="btn btn-light" @click="goodsData.goods_count++">+</button>
+    <button type="button" class="btn btn-light" @click="goodsDataClone.goods_count++">+</button>
   </div>
 </template>
 
 <script>
 export default {
-  props: {
-    goodsData: {
-      typeof: Object,
-      default: () => ({})
-    }
-  },
-
-  // 通过数据监听，如果手动输入小鱼1的数字时，强制修改为1
-  watch: {
-    goodsData: {
-      deep: true,
-      immediate: true,
-      handler() { // 拿到商品数量, 判断小于1, 强制修改成1
-        if (this.goodsData.goods_count < 1) {
-          this.goodsData.goods_count = 1
+    props: {
+        goodsData: {
+            typeof: Object,
+            default: () => ({})
         }
-      }
+    },
+
+    data() {
+        return {
+            goodsDataClone: this.goodsData
+        }
+    },
+
+    // 通过数据监听，如果手动输入小鱼1的数字时，强制修改为1
+    watch: {
+        goodsDataClone: {
+            deep: true,
+            immediate: true,
+            handler() { // 拿到商品数量, 判断小于1, 强制修改成1
+                if (this.goodsDataClone.goods_count < 1) {
+                    this.goodsDataClone.goods_count = 1
+                }
+            }
+        }
     }
-  }
 }
 </script>
 ```

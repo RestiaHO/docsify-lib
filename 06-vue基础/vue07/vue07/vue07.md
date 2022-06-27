@@ -966,13 +966,13 @@ router.afterEach((to,from)=>{})
 * 支持 Vue 2 & Vue 3
 * 支持按需引入和主题定制
 
-## 2.1 全部引入使用（推荐）
+## 2.1 全部引入使用
 
 > 目标: 看官网文档, 下载, 引入vant组件库
 
-全部引入, 快速开始:https://vant-contrib.gitee.io/vant/#/zh-CN/quickstart
+全部引入, 快速开始:https://vant-contrib.gitee.io/vant/v2/#/zh-CN/quickstart
 
-1.全部引入, 快速开始: [https://vant-contrib.gitee.io/vant/#/zh-CN/quickstart](https://vant-contrib.gitee.io/vant/)
+1.全部引入, 快速开始: 
 
 2.下载Vant组件库到当前项目中
 
@@ -980,14 +980,14 @@ router.afterEach((to,from)=>{})
 
 4.使用按钮组件 – 作为示范的例子
 
-![image-20220611164205802](images/image-20220611164205802.png)
+![image-20220621193044656](images/image-20220621193044656.png)
 
 步骤
 
 1. 下载vant组件库到当前项目中
 
    ```bash
-   yarn add vant -D
+   npm i vant@latest-v2 -S
    ```
 
 2. 导入所有组件, 在main.js中
@@ -1002,7 +1002,7 @@ router.afterEach((to,from)=>{})
 
 3. 使用按钮组件
 
-   https://vant-contrib.gitee.io/vant/#/zh-CN/button
+   https://vant-contrib.gitee.io/vant/v2/#/zh-CN/button
 
    ```vue
    <templatge>
@@ -1020,7 +1020,7 @@ router.afterEach((to,from)=>{})
 
 > 目标: 只引入使用的组件
 
-![image-20220611164326356](images/image-20220611164326356.png)
+![image-20220621193120645](images/image-20220621193120645.png)
 
 步骤：
 
@@ -1069,14 +1069,14 @@ router.afterEach((to,from)=>{})
 
 > 目标: 按需加载组件
 
-![image-20220611165705080](images/image-20220611165705080.png)
+![image-20220621193552110](images/image-20220621193552110.png)
 
 [babel-plugin-import](https://github.com/ant-design/babel-plugin-import) 是一款 babel 插件，它会在编译过程中将 import 的写法自动转换为按需引入的方式。
 
 1. 安装插件
 
    ```bash
-   yarn add babel-plugin-import -D
+   npm install babel-plugin-import -S -D
    ```
 
 2. 在babel配置文件里 (babel.config.js)
@@ -1117,7 +1117,7 @@ router.afterEach((to,from)=>{})
 
 ![image-20220611170317899](images/image-20220611170317899.png)
 
-![image-20220611170207795](images/image-20220611170207795.png)
+![image-20220621193712574](images/image-20220621193712574.png)
 
 ```vue
 <template>
@@ -1152,7 +1152,7 @@ export default {
 
 ![image-20220611170449869](images/image-20220611170449869.png)
 
-![image-20220611170442516](images/image-20220611170442516.png)
+![image-20220621193800972](images/image-20220621193800972.png)
 
 表单验证规则:
 
