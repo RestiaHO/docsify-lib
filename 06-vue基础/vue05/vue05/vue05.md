@@ -52,7 +52,7 @@
 
 [官网文档](https://cn.vuejs.org/v2/guide/instance.html#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%9B%BE%E7%A4%BA)下图展示了实例的生命周期。你不需要立马弄明白所有的东西，不过随着你的不断学习和使用，它的参考价值会越来越高。
 
-![Day03](images/Day03.png)
+![70a18eca2aa3421689884f09a666813b](images/70a18eca2aa3421689884f09a666813b.png)
 
 ## 1.3 初始化阶段
 
@@ -74,7 +74,7 @@
 
 > 问： 此时，页面上的html结构构建出来了吗？？？？换句话来说，create初始化阶段可以获取到真是DOM吗？
 
-![image-20220609173409735](images/image-20220609173409735.png)
+![image-20220715155744980](images/image-20220715155744980.png)
 
 main.js
 
@@ -165,7 +165,7 @@ export default {
 
 6.mounted – 生命周期钩子函数被执行
 
-![image-20220610094555680](images/image-20220610094555680.png)
+![image-20220715155937215](images/image-20220715155937215.png)
 
 components/Life.vue 中设置beforeMount和mounted
 
@@ -227,7 +227,7 @@ export default {
 
 5.当有data数据改变 – 重复这个循环
 
-![image-20220610095525575](images/image-20220610095525575.png)
+![image-20220715155957315](images/image-20220715155957315.png)
 
 
 
@@ -310,7 +310,7 @@ components/Life.vue 中设置beforeUpdate和updated
 
 5.destroyed – 生命周期钩子函数被执行
 
-![image-20220610100510124](images/image-20220610100510124.png)
+![image-20220715160043103](images/image-20220715160043103.png)
 
 components/Life.vue - 准备生命周期方法(Life组件即将要被删除)
 
@@ -365,6 +365,10 @@ App.vue - 点击按钮让Life组件从DOM上移除 -> 导致Life组件进入销�
 **注意：**
 
 1. 销毁阶段一般是拿来销毁一些全局事件, 移除当前组件, 计时器, 定时器，特别注意！如果子组件中涉及到定时器`setInterval`时，一定注意当组件销毁时这个定时器是否关闭`clearInterval`
+
+## 1.7 总结
+
+![915b9f85e4264142a3e1935135c10204](images/915b9f85e4264142a3e1935135c10204.png)
 
 
 
