@@ -11,7 +11,7 @@
 
 ![image-20220630201620056](images/image-20220630201620056.png)
 
-## 1.1 创建组件并配置路由
+## 1.1 创建组件并配置路由 - 路由 props 传参
 
 1. 创建 `views/article/article.vue` 组件
 
@@ -51,7 +51,7 @@
 
    > [官方文档：路由 props 传参](https://router.vuejs.org/zh/guide/essentials/passing-props.html)
 
-   ```vue
+   ```JS
      {
        path: '/article/:articleId',
        name: 'article',
@@ -173,7 +173,7 @@
       >写评论</van-button>
       <van-icon
         name="comment-o"
-        info="123"
+        badge="123"
         color="#777"
       />
       <van-icon
@@ -214,11 +214,8 @@ export default {
 <style scoped lang="less">
 .article-container {
   .main-wrap {
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 92px;
-    bottom: 88px;
+    padding-top: 92px;
+    padding-bottom: 88px;
     overflow-y: scroll;
     background-color: #fff;
   }
@@ -522,7 +519,7 @@ props: {
 > 参考链接：
 >
 > - [https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/BigInt](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/BigInt)
-> - [http://es6.ruanyifeng.com/#docs/number#BigInt-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B](
+> - [http://es6.ruanyifeng.com/#docs/number#BigInt-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B]
 
 ## 1.5 展示文章详情
 
@@ -706,6 +703,8 @@ props: {
    ```
 
 ## 1.8 图片点击预览 - ImagePreview
+
+> 如果图片有问题用文章id：7817来尝试
 
 ![image-20220701135304820](images/image-20220701135304820.png)
 
@@ -1057,6 +1056,10 @@ props: {
 
 ​      可以使用属性的 .sync 修饰符。
 
+​	  :isFollowed.sync="article.is_followed"
+
+​	  this.$emit('update:isFollowed', true)
+
 1. 使用v-model
 
    ```vue
@@ -1074,6 +1077,20 @@ props: {
        prop: 'is_followed',
        event: 'update-follow'
    }
+   ```
+   
+3. 如果使用 .sync 修饰符的方式
+
+   ```vue
+   <follow-user
+                class="follow-btn"
+                :isFollowed.sync="article.is_followed"
+                :user-id="article.aut_id"
+                />
+   ```
+
+   ```js
+   this.$emit('update:isFollowed', !this.isFollowed)
    ```
 
 ## 1.10 文章收藏
@@ -1173,7 +1190,7 @@ export default {
 
 1. 在 `api/article.js` 添加封装数据接口
 
-   ```
+   ```js
    /**
     * 收藏文章
     */

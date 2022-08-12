@@ -45,10 +45,10 @@ yarn add jquery
 yarn add jquery@3.5.1
 
 # 如果yarn没办法下载依赖包那么可以尝试使用cnpm
-# 命令: cnpm add [package]
-# 命令: cnpm add [package]@[version]
-cnpm i query
-cnpm i query@3.5.1
+# 命令: cnpm i [package]
+# 命令: cnpm i [package]@[version]
+cnpm i jquery
+cnpm i jquery@3.5.1
 ```
 
 ![image-20220531175811640](images/image-20220531175811640.png)
@@ -222,7 +222,7 @@ webpack是node的一个第三方模块包, 用于打包代码
    > `package.json`是一个项目描述文件, 里面记录了当前项目的信息。eg: 项目名称、版本、作者、[gitHub](https://so.csdn.net/so/search?q=gitHub&spm=1001.2101.3001.7020)地址、当前项目依赖哪些第三方模块等。 使用`npm`安装第三方模块，是模块的相关信息会自动添加到`package.json`文件中。它在项目中扮演着记录员的角色
 
    ```
-   yarn init
+   npm init
    ```
 
    
@@ -230,7 +230,7 @@ webpack是node的一个第三方模块包, 用于打包代码
 2. 安装依赖包
 
    ```bash
-   yarn add webpack webpack-cli -D
+   npm i webpack webpack-cli -D
    ```
 
    `-D`：表示将`webpack、webpack-cli`这两个包记录在开发环境
@@ -278,8 +278,8 @@ webpack是node的一个第三方模块包, 用于打包代码
 7. 运行打包命令
 
    ```bash
-   yarn build
-   #或者 npm run build
+   npm run build
+   #或者 yarn build
    #或者 cnpm run build
    ```
 
@@ -320,8 +320,8 @@ webpack是node的一个第三方模块包, 用于打包代码
 3. 重新打包
 
    ```bash
-   yarn build
-   #或者 npm run build
+   npm run build
+   #或者 yarn build
    #或者 cnpm run build
    ```
 
@@ -412,7 +412,7 @@ webpack是node的一个第三方模块包, 用于打包代码
 2. 下载jquery， 新建`public/index.html`
 
    ```
-   yarn add jquery
+   npm i jquery
    ```
 
    ![image-20220601095633593](images/image-20220601095633593.png)
@@ -563,7 +563,7 @@ webpack是node的一个第三方模块包, 用于打包代码
 1. 安装依赖
 
    ```dash
-   yarn add style-loader css-loader -D
+   npm i style-loader css-loader -D
    ```
 
 2. webpack.config.js 配置
@@ -600,7 +600,7 @@ webpack是node的一个第三方模块包, 用于打包代码
 1. 下载依赖包
 
    ```bash
-   yarn add less less-loader -D
+   npm i less less-loader -D
    ```
 
    ![image-20220601110407784](images/image-20220601110407784.png)
@@ -672,7 +672,7 @@ webpack是node的一个第三方模块包, 用于打包代码
 1. 下载依赖包
 
    ```dash
-   yarn add url-loader file-loader -D
+   npm i url-loader file-loader -D
    ```
 
 2. webpack.config.js 配置
@@ -823,7 +823,7 @@ webpack4及以前使用下面的配置
 1. 安装包
 
    ```bash
-   yarn add -D babel-loader @babel/core @babel/preset-env
+   npm i -D babel-loader @babel/core @babel/preset-env
    ```
 
 2. 配置规则
@@ -884,7 +884,7 @@ webpack4及以前使用下面的配置
 1. 下载模块
 
    ```bash
-   yarn add webpack-dev-server -D
+   npm i webpack-dev-server -D
    ```
 
 2. 配置自定义命令
@@ -899,8 +899,8 @@ webpack4及以前使用下面的配置
 3. 运行命令-启动webpack开发服务器
 
    ```bash
-   yarn serve
-   # 或者 npm run serve
+   npm run serve
+   # 或者 yarn serve
    ```
 
    **如果报错，则需要安装`webpack-cli`**

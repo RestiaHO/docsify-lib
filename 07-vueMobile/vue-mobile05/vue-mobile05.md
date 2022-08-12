@@ -311,7 +311,7 @@
 
 2. 在子组件中监视搜索框输入内容的变化，如果变化则请求获取联想建议数据
 
-   ```VUE
+   ```JS
      props: {
        searchText: {
          type: String,
@@ -611,7 +611,9 @@ arr.join("<span>hello</span>");
    ```js
    // 事件函数
    onSearch (val) {
-       this.value = val
+     	// 更新文本框内容
+       this.searchText = val
+     	// 渲染搜索结果
        this.isShowSearchResult = true
    }
    ```
@@ -820,7 +822,7 @@ arr.join("<span>hello</span>");
 - 给历史记录中的每一项注册点击事件
 - 在处理函数中判断
   - 如果是删除状态，则执行删除操作
-  - 如果是非删除状态，则执行搜索操作
+  - 如果+是非删除状态，则执行搜索操作
 
 #### 1.6.3.1 处理删除相关元素的展示状态
 

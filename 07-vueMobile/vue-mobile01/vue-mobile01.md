@@ -758,7 +758,7 @@ PostCSS 一般不单独使用，而是与已有的构建工具进行集成。
    // 高级api-create,用来解决什么问题?
    // create解决项目当中有多个请求地址,会让代码更好维护
    const request = axios.create({
-     baseURL: "http://ttapi.research.itcast.cn/" // 基础路径
+     baseURL: "http://toutiao.itheima.net/" // 基础路径
    })
    
    export default request
@@ -1175,7 +1175,7 @@ PostCSS 一般不单独使用，而是与已有的构建工具进行集成。
 
 
 
-
+![image-20220723154211964](images/image-20220723154211964.png)
 
 
 

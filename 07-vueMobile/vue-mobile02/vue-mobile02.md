@@ -827,9 +827,9 @@ Token 是用户登录成功之后服务端返回的一个身份令牌，在项�
    	}
    ```
 
-# 2.2 我的 - 页面布局
+## 2.2 我的 - 页面布局
 
-## 2.2.1 未登录头部状态
+### 2.2.1 未登录头部状态
 
 **步骤：**
 
@@ -883,7 +883,7 @@ Token 是用户登录成功之后服务端返回的一个身份令牌，在项�
    </style>
    ```
 
-## 2.2.2 跳转登录
+### 2.2.2 跳转登录
 
 **步骤：**
 
@@ -898,7 +898,7 @@ Token 是用户登录成功之后服务端返回的一个身份令牌，在项�
    </div>
    ```
 
-## 2.2.3 关闭登录页
+### 2.2.3 关闭登录页
 
 **login/login.vue**
 
@@ -936,7 +936,7 @@ async onSubmit () {
 
 
 
-## 2.2.4 已登录头部
+### 2.2.4 已登录头部
 
 1. 页面分析
 
@@ -1044,7 +1044,7 @@ async onSubmit () {
    }
    ```
 
-## 2.2.5 宫格导航
+### 2.2.5 宫格导航
 
 1. 页面分析
 
@@ -1091,7 +1091,7 @@ async onSubmit () {
    }
    ```
 
-## 2.2.6 单元格导航
+### 2.2.6 单元格导航
 
 1. 页面分析
 
@@ -1120,7 +1120,7 @@ async onSubmit () {
    }
    ```
 
-## 2.2.7 处理已登录和未登录的页面展示
+### 2.2.7 处理已登录和未登录的页面展示
 
 1. 页面分析
 
@@ -1156,7 +1156,7 @@ async onSubmit () {
    <van-cell v-if="user" class="logout-cell" title="退出登录" center/>
    ```
 
-## 2.2.8 用户退出
+### 2.2.8 用户退出
 
 ![用户退出-1578559616164](images/%E7%94%A8%E6%88%B7%E9%80%80%E5%87%BA-1578559616164.gif)
 
@@ -1201,7 +1201,7 @@ async onSubmit () {
    />
    ```
 
-## 2.2.9 展示登录用户信息
+### 2.2.9 展示登录用户信息
 
 ![image-20220628164003380](images/image-20220628164003380.png)
 
@@ -1317,7 +1317,7 @@ async onSubmit () {
    </div>
    ```
 
-## 2.2.10 优化设置 Token
+### 2.2.10 优化设置 Token
 
 项目中的接口除了登录之外大多数都需要提供 token 才有访问权限。
 
@@ -1397,4 +1397,64 @@ export const getUserInfo = () => {
 ```
 
 
+
+# 三. 自建快捷代码片段
+
+1. 点击文件->首先项->用户代码片段
+
+2. 输入vue,选中
+
+3. 粘贴
+
+   ```json
+   {
+   	// Place your 全局 snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+   	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
+   	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
+   	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
+   	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
+   	// Placeholders with the same ids are connected.
+   	// Example:
+   	// "Print to console": {
+   	// 	"scope": "javascript,typescript",
+   	// 	"prefix": "log", 快捷键名称
+   	// 	"body": [
+   	// 		"console.log('$1');",
+   	// 		"$2"
+   	// 	],
+   	// 	"description": "Log output to console"
+   	// }
+   	"emptyVue": {
+   		"prefix": "emptyVue",
+   		"body": [
+   			"<template>\r",
+   			"  <div>\r",
+   			"  </div>\r",
+   			"</template>\r",
+   			"\r",
+   			"<script>\r",
+   			"export default {\r",
+   			"  name: '',\r",
+   			"  data () {\r",
+   			"    return {\r",
+   			"\r",
+   			"    }\r",
+   			"  },\r",
+   			"  methods: {\r",
+   			"\r",
+   			"  }\r",
+   			"}\r",
+   			"</script>\r",
+   			"\r",
+   			"<style lang=\"less\" scoped>\r",
+   			"\r",
+   			"</style>\r",
+   			""
+   		],
+   		"description": "空白的vue"
+   	}
+   }
+   ```
+
+   
 

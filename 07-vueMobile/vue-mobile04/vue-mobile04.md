@@ -76,7 +76,8 @@
    }
    </script>
    
-   <style scoped lang="less"></style>
+   <style scoped lang="less">
+   </style>
    
    ```
 
@@ -848,18 +849,17 @@
    ```js
    async loadChannels () {
        try {
-           let channles = []
+           let channels = []
            const localChannels = getItem('TOUTIAO_CHANNELS')
            if (this.user || !localChannels) {
                // 登录 或者 本地没有存储 获取后端数据
                const { data: res } = await getUserChannels()
-               this.channels = res.data.channels
-               return false
+               channels = res.data.channels
            } else {
                // 未登录并且本地没有数据
-               channles = localChannels
+               channels = localChannels
            }
-           this.channels = channles
+           this.channels = channels
        } catch (err) {
            this.$toast('获取频道列表数据失败')
        }

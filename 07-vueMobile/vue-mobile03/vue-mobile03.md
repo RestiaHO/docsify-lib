@@ -94,7 +94,7 @@
          通过swipeable属性可以开启滑动切换标签页
          通过swipe-threshold属性设置最低滑动标签数
        -->
-       <van-tabs v-model="active" animated swipeable swipe-threshold="3">
+       <van-tabs class="channel-tabs" v-model="active" animated swipeable swipe-threshold="3">
          <van-tab title="标签 1">内容 1</van-tab>
          <van-tab title="标签 2">内容 2</van-tab>
          <van-tab title="标签 3">内容 3</van-tab>
@@ -124,6 +124,8 @@
   + 宽高
   + 颜色
   + 位置
+  
+  **注意: y样式不起作用是使用`/deep/`深度选择符**
 
 ```css
 /deep/ .channel-tabs {
@@ -322,8 +324,8 @@
        methods: {
          async loadChannels () {
            try {
-             const { data } = await getUserChannelsAPI()
-             this.channels = data.data.channels
+             const { data: res } = await getUserChannelsAPI()
+             this.channels = res.data.channels
              console.log(this.channels)
            } catch (err) {
              this.$toast('获取频道列表数据失败')
@@ -394,7 +396,7 @@
 
       ​		**因为文章列表组件中请求获取文章列表数据需要频道 id，所以 频道 id 应该作为 props 参数传递给文章列表组件，为了方便，我们直接把频道对象传递给文章列表组件就可以了。**
 
-      <img src="../../../../../../../%25E5%2589%258D%25E7%25AB%25AF%25E6%258E%2588%25E8%25AF%25BE/%25E6%2595%2599%25E5%25AD%25A6%25E6%259D%2590%25E6%2596%2599/docsify/docs/vue%25E7%25A7%25BB%25E5%258A%25A8%25E7%25AB%25AF%25E5%25AE%258C%25E6%2595%25B4%25E7%25AC%2594%25E8%25AE%25B0/assets/image-20200306155328108.png" alt="image-20200306155328108" style="zoom: 67%;" />
+      ![image-20220724173829427](images/image-20220724173829427.png)
 
       在文章列表中请求获取对应的列表数据，展示到列表中。
 
@@ -842,7 +844,7 @@ export default {
 
 > 问：为什么列表滚动会相互影响？
 >
-> 答：因为每个列表并不是在自己内部进行滚动的，耳塞整个公共的body在滚动
+> 答：因为每个列表并不是在自己内部进行滚动的，整个公共的body在滚动
 
 1. 如何快速找到那个元素产生滚动？
 
@@ -889,10 +891,6 @@ export default {
 ```
 
 # 二. 文章列表项
-
-目标：
-
-
 
 分析： 
 
@@ -1374,7 +1372,13 @@ export default {
    </div>
    ```
 
+# 三. 如果flex忘记了,如何学习
 
+- (1)教程
+  语法篇:https://www.ruanyifeng.com/blog/2015/07/flex-grammar.html
+  用例篇:https://www.ruanyifeng.com/blog/2015/07/flex-examples.html
+- (2)单个属性学习-w3cshool
+  例如:https://www.w3school.com.cn/cssref/pr_flex-shrink.asp
 
 
 

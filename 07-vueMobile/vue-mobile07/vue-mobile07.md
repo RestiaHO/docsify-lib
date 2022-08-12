@@ -20,7 +20,7 @@
 
    把熟悉的`van-list`组件挂载上去
 
-   ```
+   ```VUE
    <template>
      <div class="comment-list">
        <van-list
@@ -223,7 +223,7 @@
 
    `comment-list.vue`
 
-   ![image-20220703190201729](images/image-20220703190201729.png)
+   ![image-20220730192453192](images/image-20220730192453192.png)
 
    
 

@@ -979,7 +979,7 @@
 
    ```js
    onConfirm () {
-     console.log(this.cropper.getDtata())
+     console.log(this.cropper.getData())
    }
    ```
 
@@ -1114,9 +1114,34 @@ confirm () {
 
    
 
+# 二. 通过git平台上线项目
 
+2.1 在`.gitignore`删除`/dist`
+2.2 修改`request.js`当中基准地址
 
+```js
+const request = axios.create({
+  // baseURL: 'http://ttapi.research.itcast.cn/'
+  // baseURL: 'http://toutiao.itheima.net'
+  baseURL: 'https://toutiao.itheima.net'
+})
+```
 
+2.1 `vue.config.js`修改指定根路径
+
+```js
+module.exports = {
+  publicPath: './',
+  devServer: {
+    disableHostCheck: true // 关闭host检查
+  }
+}
+```
+
+2.3 登录github上传打包后的dist文件夹内容
+2.4 进入项目仓库,点击服务pages 设置
+
+![image-20220709195647473](images/image-20220709195647473.png)
 
 
 

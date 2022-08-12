@@ -198,12 +198,11 @@ Vue渐进式: Vue从基础开始, 会循序渐进向前学习, 如下知识点�
 1. 全局安装命令
 
    ```bash
-   yarn global add @vue/cli
-   # 或者 npm install -g @vue/cli
+   npm install -g @vue/cli
    ```
-
-   注意: 如果半天没动静(95%都是网速问题), 可以`ctrl c `终止
-
+   
+注意: 如果半天没动静(95%都是网速问题), 可以`ctrl c `终止
+   
 2. 查看vue脚手架版本
 
    ```bash
@@ -245,10 +244,9 @@ Vue渐进式: Vue从基础开始, 会循序渐进向前学习, 如下知识点�
 
    ```BASH
    npm run serve
-   # 或 yarn serve
    ```
-
-   ![image-20220601161344315](images/image-20220601161344315.png)
+   
+![image-20220601161344315](images/image-20220601161344315.png)
 
 ## 2.4 @vue/cli 目录和代码分析
 
@@ -273,7 +271,7 @@ Vue渐进式: Vue从基础开始, 会循序渐进向前学习, 如下知识点�
     ├── babel.config.js  # babel配置
     ├── package.json  # 依赖包列表
     ├── README.md    # 项目说明
-	└── yarn.lock    # 项目包版本锁定和缓存地址
+		└── yarn.lock    # 项目包版本锁定和缓存地址
 ```
 
 主要文件及含义
@@ -939,8 +937,8 @@ export default {
        </div>
        <div>
            <span>性别: </span>
-           <input type="radio" value="男" name="sex" v-model="gender">男
-           <input type="radio" value="女" name="sex" v-model="gender">女
+           <input type="radio" value="男" v-model="gender">男
+           <input type="radio" value="女" v-model="gender">女
        </div>
    </div>
    </template>
@@ -982,7 +980,7 @@ export default {
 
 ## 面试口诀3：
 
-**问：vue双向编订实现原理**
+**问：vue双向绑定实现原理**
 
 **答：**当一个Vue实现创建时，Vue会遍历data选项的属性，用`Object.defineProperty`将它们转化为`getter/setter`并且在内部追踪相关依赖，在属性被访问拒绝和修改时通知变化。每个组件实例都有相应的watcher程序实例，它会在组件渲染的过程中把属性记录为依赖，之后当依赖项的setter被调用时，会通知watcher重新计算，从而致使它关联的组件得以更新。
 
