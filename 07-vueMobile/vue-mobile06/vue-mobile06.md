@@ -377,151 +377,7 @@ export default {
    }
    ```
 
-## 1.4  关于后端返回数据中的大数字问题（了解）
-
-> 视频 11 12 13 
->
-> 现在前后端已经统一了这种大数的传递方式，所以在非数学计算的场景中几乎是不会有这种情况出现的
-
-之所以请求文章详情返回 404 是因为我们请求发送的文章 ID （article.art_id）不正确。
-
-JavaScript 能够准确表示的整数范围在`-2^53`到`2^53`之间（不含两个端点），超过这个范围，无法精确表示这个值，这使得 JavaScript 不适合进行科学和金融方面的精确计算。
-
-```javascript
-Math.pow(2, 53) // 9007199254740992
-
-9007199254740992  // 9007199254740992
-9007199254740993  // 9007199254740992
-
-Math.pow(2, 53) === Math.pow(2, 53) + 1
-// true
-```
-
-上面代码中，超出 2 的 53 次方之后，一个数就不精确了。
-ES6 引入了`Number.MAX_SAFE_INTEGER`和`Number.MIN_SAFE_INTEGER`这两个常量，用来表示这个范围的上下限。
-
-```javascript
-Number.MAX_SAFE_INTEGER === Math.pow(2, 53) - 1
-// true
-Number.MAX_SAFE_INTEGER === 9007199254740991
-// true
-
-Number.MIN_SAFE_INTEGER === -Number.MAX_SAFE_INTEGER
-// true
-Number.MIN_SAFE_INTEGER === -9007199254740991
-// true
-```
-
-上面代码中，可以看到 JavaScript 能够精确表示的极限。
-
-后端返回的数据一般都是 **JSON 格式的字符串**。
-
-```json
-'{ "id": 9007199254740995, "name": "Jack", "age": 18 }'
-```
-
-如果这个字符不做任何处理，你能方便的获取到字符串中的指定数据吗？非常麻烦。所以我们要把它转换为 JavaScript 对象来使用就很方便了。
-
-幸运的是 axios 为了方便我们使用数据，它会在内部使用 `JSON.parse()` 把后端返回的数据转为 JavaScript 对象。
-
-```javascript
-// { id: 9007199254740996, name: 'Jack', age: 18 }
-JSON.parse('{ "id": 9007199254740995, "name": "Jack", "age": 18 }')
-```
-
-可以看到，超出安全整数范围的 id 无法精确表示，这个问题并不是 axios 的错。
-
-了解了什么是大整数的概念，接下来的问题是如何解决？
-
-### 1.4.1 利用json-bigint处理大数字问题
-
-[json-bigint](https://github.com/sidorares/json-bigint) 是一个第三方包，它可以帮我们很好的处理这个问题。
-
-使用它的第一步就是把它安装到你的项目中。
-
-```shell
-npm i json-bigint
-```
-
-下面是使用它的一个简单示例。
-
-```javascript
-const jsonStr = '{ "art_id": 1245953273786007552 }'
-
-console.log(JSON.parse(jsonStr)) // 1245953273786007600
-// JSON.stringify()
-
-// JSONBig 可以处理数据中超出 JavaScript 安全整数范围的问题
-console.log(JSONBig.parse(jsonStr)) // 把 JSON 格式的字符串转为 JavaScript 对象
-
-// 使用的时候需要把 BigNumber 类型的数据转为字符串来使用
-console.log(JSONBig.parse(jsonStr).art_id.toString()) // 1245953273786007552
-
-console.log(JSON.stringify(JSONBig.parse(jsonStr)))
-
-console.log(JSONBig.stringify(JSONBig.parse(jsonStr))) // 把 JavaScript 对象 转为 JSON 格式的字符串转
-```
-
-![image.png](images/1582099315865-5e805425-7abf-4cf2-9df3-acc2ef8f9bb9-1656652049471.png)
-
-> json-bigint 会把超出 JS 安全整数范围的数字转为一个 BigNumber 类型的对象，对象数据是它内部的一个算法处理之后的，我们要做的就是在使用的时候转为字符串来使用。
-
-
-通过 Axios 请求得到的数据都是 Axios 处理（JSON.parse）之后的，我们应该在 Axios 执行处理之前手动使用 json-bigint 来解析处理。Axios 提供了自定义处理原始后端返回数据的 API：`transformResponse` 。
-
-```javascript
-import axios from 'axios'
-
-import jsonBig from 'json-bigint'
-
-var json = '{ "value" : 9223372036854775807, "v2": 123 }'
-
-console.log(jsonBig.parse(json))
-
-const request = axios.create({
-  baseURL: 'http://ttapi.research.itcast.cn/', // 接口基础路径
-
-  // transformResponse 允许自定义原始的响应数据（字符串）
-  transformResponse: [function (data) {
-    try {
-      // 如果转换成功则返回转换的数据结果
-      return jsonBig.parse(data)
-    } catch (err) {
-      // 如果转换失败，则包装为统一数据格式并返回
-      return {
-        data
-      }
-    }
-  }]
-})
-
-export default request
-
-```
-
-修改props类型
-
-```js
-props: {
-    articleId: {
-      type: [Number, String, Object],
-      required: true
-    }
-  }
-```
-
-
-
-> 扩展：ES2020 BigInt
->
-> ES2020 引入了一种新的数据类型 BigInt（大整数），来解决这个问题。BigInt 只用来表示整数，没有位数的限制，任何位数的整数都可以精确表示。
->
-> 参考链接：
->
-> - [https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/BigInt](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/BigInt)
-> - [http://es6.ruanyifeng.com/#docs/number#BigInt-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B]
-
-## 1.5 展示文章详情
+## 1.4 展示文章详情
 
 1. 在组件中调用获取文章详情
 
@@ -607,7 +463,7 @@ props: {
            </div>
      ```
 
-## 1.6 处理加载内容
+## 1.5 处理加载内容
 
 **需求：**
 
@@ -672,7 +528,7 @@ props: {
 
    ![image-20220701134023700](images/image-20220701134023700.png)
 
-## 1.7 关于文章正文的样式
+## 1.6 关于文章正文的样式
 
 >  文章正文包括各种数据：段落、标题、列表、链接、图片、视频等资源。
 >
@@ -702,7 +558,7 @@ props: {
    }
    ```
 
-## 1.8 图片点击预览 - ImagePreview
+## 1.7 图片点击预览 - ImagePreview
 
 > 如果图片有问题用文章id：7817来尝试
 
@@ -778,7 +634,7 @@ props: {
 
 
 
-## 1.9 关注用户
+## 1.8 关注用户
 
 ![image-20220701140836204](images/image-20220701140836204.png)
 
@@ -789,7 +645,7 @@ props: {
   - 如果已关注，则取消关注
   - 如果没有关注，则添加关注
 
-### 1.9.1 视图处理
+### 1.8.1 视图处理
 
 ```vue
           <van-button
@@ -809,7 +665,7 @@ props: {
           >已关注</van-button>
 ```
 
-### 1.9.2 功能处理
+### 1.8.2 功能处理
 
 - 找到数据接口
 - 封装请求方法
@@ -917,7 +773,7 @@ props: {
 
    ![image-20220701145119319](images/image-20220701145119319.png)
 
-### 1.9.3 组件封装
+### 1.8.3 组件封装
 
 > 04 - 18:28
 
@@ -1024,7 +880,7 @@ props: {
 
 4. 删除多余代码
 
-### 1.9.4组件中使用v-model
+### 1.8.4组件中使用v-model
 
 > 能够修改父组件传入的数据
 
@@ -1093,11 +949,11 @@ props: {
    this.$emit('update:isFollowed', !this.isFollowed)
    ```
 
-## 1.10 文章收藏
+## 1.9 文章收藏
 
 > 该功能和关注用户的处理思路几乎一样，建议自己编写。
 
-### 1.10.1 封装组件
+### 1.9.1 封装组件
 
 ![image-20220701152750618](images/image-20220701152750618.png)
 
@@ -1122,7 +978,7 @@ export default {
 
 ```
 
-### 1.10.2 使用组件
+### 1.9.2 使用组件
 
 1. 导入组件
 
@@ -1178,7 +1034,7 @@ export default {
    </style>
    ```
 
-### 1.10.3 功能处理
+### 1.9.3 功能处理
 
 **思路：**
 
@@ -1307,9 +1163,9 @@ export default {
 
 6. 将底部区域调整到正文下面
 
-## 1.11 文章点赞
+## 1.10 文章点赞
 
-### 1.11.1 封装接口
+### 1.10.1 封装接口
 
 ```js
 
@@ -1338,7 +1194,7 @@ export const deleteLike = target => {
 
 ```
 
-### 1.11.2 封装组件
+### 1.10.2 封装组件
 
 > 直接拷贝文章，在进行微调
 
@@ -1408,7 +1264,7 @@ export default {
 
 ```
 
-### 1.11.3 组件使用
+### 1.10.3 组件使用
 
 **template**
 

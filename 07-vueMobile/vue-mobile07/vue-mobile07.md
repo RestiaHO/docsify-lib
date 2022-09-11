@@ -74,7 +74,7 @@
 
 2. 在文章详情页面中加载注册文章评论子组件
 
-   ![image-20220701191232698](images/image-20220701191232698.png)
+   ![image-20220905190440369](images/image-20220905190440369.png)
 
    ![image-20220701191247620](images/image-20220701191247620.png)
 
@@ -648,30 +648,17 @@
        }
    ```
 
-3. 将文章评论组件中的list换成props模式
+3. 通过refs调用`comment-list.vue`的方法来进行添加
 
-   ![image-20220702162350213](images/image-20220702162350213.png)
+   `src\views\article\article.vue`
 
-4. 父组件给文章评论组件传递list
+   ![image-20220905193754864](images/image-20220905193754864.png)
 
-   ![image-20220702162012779](images/image-20220702162012779.png)
+   `src\views\article\components\comment-list.vue`
 
-5. 定义commentList
+   ![image-20220905193842594](images/image-20220905193842594.png)
 
-   ![image-20220702162044195](images/image-20220702162044195.png)
-
-6. 给commentList追加数据
-
-   ```js
-       postSuccess (res) {
-         // 关闭弹出层
-         this.isPostShow = false
-         // 将发布内容显示到列表顶部
-         this.commentList.unshift(res.new_obj)
-       }
-   ```
-
-7. 发布成功后，清空输入框
+4. 发布成功后，清空输入框
 
    ![image-20220702162552411](images/image-20220702162552411.png)
 
