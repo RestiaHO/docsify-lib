@@ -1,4 +1,21 @@
-- vue基础
+- JS
+  - [basics01](01-js基础/js-basics01/js第一天.md)
+  - [basics02](01-js基础/js-basics02/js第二天.md)
+  - [basics03](01-js基础/js-basics03/js第三天.md)
+  - [basics04](01-js基础/js-basics04/js第四天.md)
+  - [basics05](01-js基础/js-basics05/js第五天.md)
+  - [basics06](01-js基础/js-basics06/js第六天.md)
+  - [advanced01](02-js高级/jsAdvanced01/jsadvanced01.md)
+  - [advanced02](02-js高级/jsAdvanced02/jsadvanced02.md)
+  - [advanced03](02-js高级/jsAdvanced03/jsadvanced03.md)
+  - [advanced04](02-js高级/jsAdvanced04/jsadvanced04.md)
+  - [advanced05](02-js高级/jsAdvanced05/jsadvanced05.md)
+
+- GIT
+  - [git01](04-git/git01/git01.md)
+  - [git02](04-git/git02/git02.md)
+
+- vue
   - [vue01](06-vue基础/vue01/vue01/vue01.md)
   - [vue02](06-vue基础/vue02/vue02/vue02.md)
   - [vue03](06-vue基础/vue03/vue03/vue03.md)
@@ -8,7 +25,7 @@
   - [vue07](06-vue基础/vue07/vue07/vue07.md)
   - [vue08](06-vue基础/vue08/vue08/vue08.md)
 
-- vue移动端项目
+- vue头条项目
   - [vue-mobile01](07-vueMobile/vue-mobile01/vue-mobile01.md)
   - [vue-mobile02](07-vueMobile/vue-mobile02/vue-mobile02.md)
   - [vue-mobile03](07-vueMobile/vue-mobile03/vue-mobile03.md)
